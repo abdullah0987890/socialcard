@@ -19,17 +19,26 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            position: relative;
         }
 
         .card-container {
             perspective: 1000px;
         }
 
-             .social-card {
+        .social-card {
             background: linear-gradient(145deg, #0F2027, #203A43,#2C5364);
             border-radius: 25px;
             width: 320px;
-            height: 480px;
+            height: 520px;
             padding: 40px 30px;
             display: flex;
             flex-direction: column;
@@ -42,7 +51,6 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
 
         .social-card:hover {
             box-shadow: 
@@ -85,11 +93,6 @@
             background: #f0f0f0;
         }
 
-        .profile-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-        }
-
         .username {
             color: white;
             font-size: 24px;
@@ -99,18 +102,17 @@
         }
 
         .social-links {
-            display: flex;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             margin-bottom: 30px;
-            justify-content: center;
             width: 100%;
-            overflow: hidden;
             padding: 10px 0;
         }
 
         .social-icon {
-            width: 42px;
-            height: 42px;
+            width: 50px;
+            height: 50px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -120,34 +122,132 @@
             justify-content: center;
             color: white;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 16px;
+            transition: all 0.4s ease;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 0 auto;
         }
 
-        .social-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.2) translateY(-3px);
+        /* Blur effect on hover */
+        .social-links:hover .social-icon {
+            filter: blur(3px);
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        .social-links .social-icon:hover {
+            filter: blur(0px) !important;
+            opacity: 1 !important;
+            transform: scale(1.2) translateY(-5px) !important;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             z-index: 10;
             position: relative;
         }
 
-        /* Blur siblings on hover */
-        .social-links:hover .social-icon:not(:hover) {
-            filter: blur(2px);
-            opacity: 0.6;
-            transform: scale(0.9);
+        .linkedin:hover { background: rgba(10, 102, 194, 0.8) !important; }
+        .instagram:hover { background: rgba(225, 48, 108, 0.8) !important; }
+        .whatsapp:hover { background: rgba(37, 211, 102, 0.8) !important; }
+        .gmail:hover { background: rgba(234, 67, 53, 0.8) !important; }
+        .website:hover { background: rgba(66, 165, 245, 0.8) !important; }
+        .projects:hover { background: rgba(255, 193, 7, 0.8) !important; }
+
+        /* Projects Card */
+        .projects-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e, #0f3460);
+            border-radius: 25px;
+            width: 400px;
+            max-height: 520px;
+            padding: 30px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: absolute;
+            right: -450px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
         }
 
-        .social-links:hover .social-icon {
-            transition: all 0.4s ease;
+        .projects-card.active {
+            right: -430px;
+            opacity: 1;
         }
 
-        .linkedin:hover { background: rgba(10, 102, 194, 0.3); }
-        .instagram:hover { background: rgba(225, 48, 108, 0.3); }
-        .whatsapp:hover { background: rgba(37, 211, 102, 0.3); }
-        .gmail:hover { background: rgba(234, 67, 53, 0.3); }
-        .website:hover { background: rgba(66, 165, 245, 0.3); }
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .projects-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .project-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(-5px);
+        }
+
+        .project-name {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a5b4fc;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
 
         .cta-button {
             background: linear-gradient(45deg, #667eea, #764ba2);
@@ -201,18 +301,54 @@
             font-size: 14px;
         }
 
+        /* Scrollbar styling for projects card */
+        .projects-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .projects-card::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .projects-card::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .projects-card::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         /* Mobile responsive */
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .projects-card {
+                position: relative;
+                right: auto;
+                width: 320px;
+                margin-top: 20px;
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            .projects-card.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
             .social-card {
                 width: 300px;
-                height: 450px;
+                height: 500px;
                 padding: 30px 25px;
             }
             
             .profile-image {
                 width: 100px;
                 height: 100px;
-                font-size: 40px;
             }
             
             .username {
@@ -220,100 +356,205 @@
             }
             
             .social-icon {
-                width: 40px;
-                height: 40px;
+                width: 45px;
+                height: 45px;
                 font-size: 16px;
             }
-        }
 
-        /* Mobile: Disable hover effects */
-        @media (max-width: 768px) {
-            .social-icon:hover {
-                transform: none;
-                filter: none;
-                opacity: 1;
+            .social-links {
+                gap: 8px;
             }
-            
-            .social-links:hover .social-icon:not(:hover) {
+
+            /* Disable blur effect on mobile */
+            .social-links:hover .social-icon {
                 filter: none;
                 opacity: 1;
                 transform: none;
+            }
+
+            .social-links .social-icon:hover {
+                filter: none !important;
+                opacity: 1 !important;
+                transform: scale(1.1) !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <div class="social-card">
-            <div class="decorative-element">✦</div>
-            
-            <div class="profile-section">
-                <div class="profile-image">
-                    <img src="/ST1_2336.jpg" alt="Developer Icon" />
+    <div class="main-container">
+        <div class="card-container">
+            <div class="social-card">
+                <div class="decorative-element">✦</div>
+                
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <img src="/ST1_2336.jpg" alt="Developer Icon" />
+                    </div>
+                    <div class="username">Abdullah Afzal</div>
                 </div>
-                <div class="username">Abdullah Afzal</div>
+                
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/abdullah-afzal-310388329/" class="social-icon linkedin" title="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/_abdullahafzal_/" class="social-icon instagram" title="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                    </a>
+                                        <a href="https://wa.me/923036695544" class="social-icon whatsapp" title="WhatsApp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:abdullah.karitix@gmail.com" class="social-icon gmail" title="Gmail">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </a>
+                    <a href="https://abdullah.news" class="social-icon website" title="Website">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="2" y1="12" x2="22" y2="12"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                    </a>
+                    <div class="social-icon projects" title="Projects" onclick="toggleProjects()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                            <line x1="12" y1="11" x2="12" y2="17"/>
+                            <line x1="9" y1="14" x2="15" y2="14"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <a href="https://www.linkedin.com/in/abdullah-afzal-310388329/" class="cta-button">
+                    Connect on LinkedIn
+                </a>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">About</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                </div>
             </div>
-            
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/abdullah-afzal-310388329/" class="social-icon linkedin" title="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2"/>
+        </div>
+
+        <!-- Projects Card -->
+        <div class="projects-card" id="projectsCard">
+            <div class="projects-header">
+                <h2 class="projects-title">My Projects</h2>
+                <button class="close-btn" onclick="toggleProjects()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
                     </svg>
-                </a>
-                <a href="https://www.instagram.com/_abdullahafzal_/" class="social-icon instagram" title="Instagram">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                    </svg>
-                </a>
-                <a href="https://wa.me/923036695544" class="social-icon whatsapp" title="WhatsApp">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                    </svg>
-                </a>
-                <a href="mailto:abdullah.karitix@gmail.com" class="social-icon gmail" title="Gmail">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
-                </a>
-                <a href="https://abdullah.news" class="social-icon website" title="Website">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="2" y1="12" x2="22" y2="12"/>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                </a>
+                </button>
             </div>
-            
-            <a href="https://www.linkedin.com/in/abdullah-afzal-310388329/" class="cta-button">
-                Connect on LinkedIn
-            </a>
-            
+
+            <div class="project-item">
+               <a href="https://safrtaiba.com/"> <h3 class="project-name">Ummrha Tickets</h3></a>
+                <p class="project-description">A full-stack e-commerce solution with real-time inventory management and secure payment processing.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">Stripe API</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <a href="https://bluplan.co.uk/"><h3 class="project-name">Shopify</h3></a>
+                <p class="project-description">A collaborative task management application with real-time updates and team collaboration features.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Shopify</span>
+                </div>
+            </div>
+
+           <div class="project-item">
+                 <a href="https://www.hobbiies.dk"><h3 class="project-name">Hobbies</h3></a>
+                <p class="project-description">A responsive weather dashboard with location-based forecasts and interactive weather maps.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">OpenWeather API</span>
+                    <span class="tech-tag">Chart.js</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+               <a href="https://abdullah.news/"><h3 class="project-name">Portfolio Website</h3></a> 
+                <p class="project-description">A modern, responsive portfolio website with smooth animations and optimized performance.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">GSAP</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        // Toggle projects card
+        function toggleProjects() {
+            const projectsCard = document.getElementById('projectsCard');
+            projectsCard.classList.toggle('active');
+        }
+
+        // Close projects card when clicking outside
+        document.addEventListener('click', function(event) {
+            const projectsCard = document.getElementById('projectsCard');
+            const projectsButton = document.querySelector('.projects');
+            const isClickInsideProjects = projectsCard.contains(event.target);
+            const isClickOnButton = projectsButton.contains(event.target);
+            
+            if (!isClickInsideProjects && !isClickOnButton && projectsCard.classList.contains('active')) {
+                projectsCard.classList.remove('active');
+            }
+        });
+
         // Add smooth hover effects and animations
         document.addEventListener('DOMContentLoaded', function() {
-            const card = document.querySelector('.social-card');
             const socialIcons = document.querySelectorAll('.social-icon');
             
             // Add click animations
             socialIcons.forEach(icon => {
                 icon.addEventListener('click', function(e) {
-                    this.style.transform = 'scale(0.95) translateY(-3px)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-3px)';
-                    }, 150);
+                    if (!this.classList.contains('projects')) {
+                        this.style.transform = 'scale(0.95) translateY(-3px)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1.2) translateY(-5px)';
+                        }, 150);
+                    }
                 });
             });
 
-            // Parallax effect on mouse move
-          
+            // Animate project items on card open
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.target.classList.contains('active')) {
+                        const projectItems = document.querySelectorAll('.project-item');
+                        projectItems.forEach((item, index) => {
+                            item.style.opacity = '0';
+                            item.style.transform = 'translateX(20px)';
+                            setTimeout(() => {
+                                item.style.transition = 'all 0.3s ease';
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateX(0)';
+                            }, index * 100);
+                        });
+                    }
+                });
+            });
+
+            const projectsCard = document.getElementById('projectsCard');
+            observer.observe(projectsCard, { attributes: true, attributeFilter: ['class'] });
         });
     </script>
 </body>
