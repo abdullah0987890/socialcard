@@ -128,20 +128,22 @@
             margin: 0 auto;
         }
 
-        /* Blur effect on hover */
-        .social-links:hover .social-icon {
-            filter: blur(3px);
-            opacity: 0.5;
-            transform: scale(0.95);
-        }
+        /* Blur effect on hover - only for desktop */
+        @media (min-width: 769px) {
+            .social-links:hover .social-icon {
+                filter: blur(3px);
+                opacity: 0.5;
+                transform: scale(0.95);
+            }
 
-        .social-links .social-icon:hover {
-            filter: blur(0px) !important;
-            opacity: 1 !important;
-            transform: scale(1.2) translateY(-5px) !important;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            z-index: 10;
-            position: relative;
+            .social-links .social-icon:hover {
+                filter: blur(0px) !important;
+                opacity: 1 !important;
+                transform: scale(1.2) translateY(-5px) !important;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                z-index: 10;
+                position: relative;
+            }
         }
 
         .linkedin:hover { background: rgba(10, 102, 194, 0.8) !important; }
@@ -218,6 +220,11 @@
         .project-item:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateX(-5px);
+        }
+
+        .project-item a {
+            text-decoration: none;
+            color: inherit;
         }
 
         .project-name {
@@ -320,24 +327,52 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
+        /* Mobile overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+        }
+
         /* Mobile responsive */
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
             }
 
+            .mobile-overlay {
+                display: block;
+            }
+
             .projects-card {
-                position: relative;
+                position: fixed;
+                bottom: -100%;
+                left: 50%;
+                transform: translateX(-50%);
                 right: auto;
-                width: 320px;
-                margin-top: 20px;
-                opacity: 0;
-                transform: translateY(20px);
+                width: 90%;
+                max-width: 400px;
+                max-height: 70vh;
+                margin: 0;
+                z-index: 1000;
+                transition: bottom 0.4s ease-out;
+                border-radius: 25px 25px 0 0;
             }
 
             .projects-card.active {
+                bottom: 0;
                 opacity: 1;
-                transform: translateY(0);
             }
 
             .social-card {
@@ -365,22 +400,36 @@
                 gap: 8px;
             }
 
-            /* Disable blur effect on mobile */
+            /* Mobile touch feedback */
+            .social-icon:active {
+                transform: scale(0.95);
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .projects:active {
+                background: rgba(255, 193, 7, 0.8) !important;
+            }
+
+            /* Disable hover effects on mobile */
             .social-links:hover .social-icon {
                 filter: none;
                 opacity: 1;
                 transform: none;
             }
 
-            .social-links .social-icon:hover {
-                filter: none !important;
-                opacity: 1 !important;
-                transform: scale(1.1) !important;
+            .project-item:hover {
+                transform: none;
+            }
+
+            .close-btn:hover {
+                transform: none;
             }
         }
     </style>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
     <div class="main-container">
         <div class="card-container">
             <div class="social-card">
@@ -402,13 +451,13 @@
                         </svg>
                     </a>
                     <a href="https://www.instagram.com/_abdullahafzal_/" class="social-icon instagram" title="Instagram">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                         </svg>
                     </a>
-                                        <a href="https://wa.me/923036695544" class="social-icon whatsapp" title="WhatsApp">
+                    <a href="https://wa.me/923036695544" class="social-icon whatsapp" title="WhatsApp">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
                         </svg>
@@ -458,9 +507,10 @@
                 </button>
             </div>
 
+           
             <div class="project-item">
                <a href="https://safrtaiba.com/"> <h3 class="project-name">Ummrha Tickets</h3></a>
-                <p class="project-description">A full-stack e-commerce solution with real-time inventory management and secure payment processing.</p>
+                <p class="project-description">A full-stack Umrah Tickets solution with real-time inventory management and secure payment processing.</p>
                 <div class="project-tech">
                     <span class="tech-tag">React</span>
                     <span class="tech-tag">Node.js</span>
@@ -479,11 +529,11 @@
 
            <div class="project-item">
                  <a href="https://www.hobbiies.dk"><h3 class="project-name">Hobbies</h3></a>
-                <p class="project-description">A responsive weather dashboard with location-based forecasts and interactive weather maps.</p>
+                <p class="project-description">A responsive hobbiies dashboard with location-based forecasts and interactive Profile creation</p>
                 <div class="project-tech">
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">OpenWeather API</span>
-                    <span class="tech-tag">Chart.js</span>
+                    <span class="tech-tag">TypescriptScript</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Next.js</span>
                 </div>
             </div>
 
@@ -501,21 +551,47 @@
     </div>
 
     <script>
+        // Check if device is mobile
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
         // Toggle projects card
         function toggleProjects() {
             const projectsCard = document.getElementById('projectsCard');
-            projectsCard.classList.toggle('active');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            if (projectsCard.classList.contains('active')) {
+                projectsCard.classList.remove('active');
+                if (isMobile()) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            } else {
+                projectsCard.classList.add('active');
+                if (isMobile()) {
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
         }
 
-        // Close projects card when clicking outside
+        // Close projects card when clicking overlay on mobile
+        document.getElementById('mobileOverlay').addEventListener('click', function() {
+            toggleProjects();
+        });
+
+        // Close projects card when clicking outside on desktop
         document.addEventListener('click', function(event) {
-            const projectsCard = document.getElementById('projectsCard');
-            const projectsButton = document.querySelector('.projects');
-            const isClickInsideProjects = projectsCard.contains(event.target);
-            const isClickOnButton = projectsButton.contains(event.target);
-            
-            if (!isClickInsideProjects && !isClickOnButton && projectsCard.classList.contains('active')) {
-                projectsCard.classList.remove('active');
+            if (!isMobile()) {
+                const projectsCard = document.getElementById('projectsCard');
+                const projectsButton = document.querySelector('.projects');
+                const isClickInsideProjects = projectsCard.contains(event.target);
+                const isClickOnButton = projectsButton.contains(event.target);
+                
+                if (!isClickInsideProjects && !isClickOnButton && projectsCard.classList.contains('active')) {
+                    projectsCard.classList.remove('active');
+                }
             }
         });
 
@@ -523,17 +599,19 @@
         document.addEventListener('DOMContentLoaded', function() {
             const socialIcons = document.querySelectorAll('.social-icon');
             
-            // Add click animations
-            socialIcons.forEach(icon => {
-                icon.addEventListener('click', function(e) {
-                    if (!this.classList.contains('projects')) {
-                        this.style.transform = 'scale(0.95) translateY(-3px)';
-                        setTimeout(() => {
-                            this.style.transform = 'scale(1.2) translateY(-5px)';
-                        }, 150);
-                    }
+            // Add click animations for desktop only
+            if (!isMobile()) {
+                socialIcons.forEach(icon => {
+                    icon.addEventListener('click', function(e) {
+                        if (!this.classList.contains('projects')) {
+                            this.style.transform = 'scale(0.95) translateY(-3px)';
+                            setTimeout(() => {
+                                this.style.transform = 'scale(1.2) translateY(-5px)';
+                            }, 150);
+                        }
+                    });
                 });
-            });
+            }
 
             // Animate project items on card open
             const observer = new MutationObserver(function(mutations) {
@@ -542,11 +620,11 @@
                         const projectItems = document.querySelectorAll('.project-item');
                         projectItems.forEach((item, index) => {
                             item.style.opacity = '0';
-                            item.style.transform = 'translateX(20px)';
+                            item.style.transform = isMobile() ? 'translateY(20px)' : 'translateX(20px)';
                             setTimeout(() => {
                                 item.style.transition = 'all 0.3s ease';
                                 item.style.opacity = '1';
-                                item.style.transform = 'translateX(0)';
+                                item.style.transform = isMobile() ? 'translateY(0)' : 'translateX(0)';
                             }, index * 100);
                         });
                     }
@@ -555,6 +633,26 @@
 
             const projectsCard = document.getElementById('projectsCard');
             observer.observe(projectsCard, { attributes: true, attributeFilter: ['class'] });
+        });
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                const projectsCard = document.getElementById('projectsCard');
+                const overlay = document.getElementById('mobileOverlay');
+                
+                if (projectsCard.classList.contains('active')) {
+                    if (!isMobile()) {
+                        overlay.classList.remove('active');
+                        document.body.style.overflow = '';
+                    } else {
+                        overlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+            }, 250);
         });
     </script>
 </body>
