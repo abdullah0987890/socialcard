@@ -97,7 +97,7 @@
             color: white;
             font-size: 24px;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 5px;
             letter-spacing: -0.5px;
         }
 
@@ -105,7 +105,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 5px;
             width: 100%;
             padding: 10px 0;
         }
@@ -152,6 +152,30 @@
         .gmail:hover { background: rgba(234, 67, 53, 0.8) !important; }
         .website:hover { background: rgba(66, 165, 245, 0.8) !important; }
         .projects:hover { background: rgba(255, 193, 7, 0.8) !important; }
+        .skills:hover { background: rgba(156, 39, 176, 0.8) !important; }
+
+        /* Skills Card */
+        .skills-card {
+            background: linear-gradient(145deg, #0F2027, #203A43, #2C5364);
+            border-radius: 25px;
+            width: 400px;
+            max-height: 520px;
+            padding: 30px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: absolute;
+            left: -450px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow-y: auto;
+        }
+
+        .skills-card.active {
+            left: -430px;
+            opacity: 1;
+        }
 
         /* Projects Card */
         .projects-card {
@@ -176,14 +200,14 @@
             opacity: 1;
         }
 
-        .projects-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
         }
 
-        .projects-title {
+        .card-title {
             color: white;
             font-size: 24px;
             font-weight: 600;
@@ -208,6 +232,97 @@
             transform: rotate(90deg);
         }
 
+        /* Skills specific styles */
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .category-name {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .skill-name {
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .skill-level {
+            margin-top: 8px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            transition: width 0.8s ease-out;
+        }
+
+        /* Project styles */
         .project-item {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
@@ -308,22 +423,26 @@
             font-size: 14px;
         }
 
-        /* Scrollbar styling for projects card */
-        .projects-card::-webkit-scrollbar {
+        /* Scrollbar styling */
+        .projects-card::-webkit-scrollbar,
+        .skills-card::-webkit-scrollbar {
             width: 6px;
         }
 
-        .projects-card::-webkit-scrollbar-track {
+        .projects-card::-webkit-scrollbar-track,
+        .skills-card::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 3px;
         }
 
-        .projects-card::-webkit-scrollbar-thumb {
+        .projects-card::-webkit-scrollbar-thumb,
+        .skills-card::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
         }
 
-        .projects-card::-webkit-scrollbar-thumb:hover {
+        .projects-card::-webkit-scrollbar-thumb:hover,
+        .skills-card::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
 
@@ -355,7 +474,8 @@
                 display: block;
             }
 
-            .projects-card {
+            .projects-card,
+            .skills-card {
                 position: fixed;
                 bottom: -100%;
                 left: 50%;
@@ -370,7 +490,8 @@
                 border-radius: 25px 25px 0 0;
             }
 
-            .projects-card.active {
+            .projects-card.active,
+            .skills-card.active {
                 bottom: 0;
                 opacity: 1;
             }
@@ -400,6 +521,25 @@
                 gap: 8px;
             }
 
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+                gap: 8px;
+            }
+
+            .skill-item {
+                padding: 10px 6px;
+            }
+
+            .skill-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .skill-name {
+                font-size: 11px;
+            }
+
             /* Mobile touch feedback */
             .social-icon:active {
                 transform: scale(0.95);
@@ -410,6 +550,10 @@
                 background: rgba(255, 193, 7, 0.8) !important;
             }
 
+            .skills:active {
+                background: rgba(156, 39, 176, 0.8) !important;
+            }
+
             /* Disable hover effects on mobile */
             .social-links:hover .social-icon {
                 filter: none;
@@ -417,7 +561,9 @@
                 transform: none;
             }
 
-            .project-item:hover {
+            .project-item:hover,
+            .skill-category:hover,
+            .skill-item:hover {
                 transform: none;
             }
 
@@ -451,7 +597,7 @@
                         </svg>
                     </a>
                     <a href="https://www.instagram.com/_abdullahafzal_/" class="social-icon instagram" title="Instagram">
-                                               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
@@ -475,6 +621,13 @@
                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                         </svg>
                     </a>
+                    <div class="social-icon skills" title="Skills" onclick="toggleSkills()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
                     <div class="social-icon projects" title="Projects" onclick="toggleProjects()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
@@ -495,10 +648,180 @@
             </div>
         </div>
 
+        <!-- Skills Card -->
+        <div class="skills-card" id="skillsCard">
+            <div class="card-header">
+                <h2 class="card-title">My Skills</h2>
+                <button class="close-btn" onclick="toggleSkills()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="skill-category">
+                <div class="category-name">
+                    <div class="category-icon">🌐</div>
+                    Frontend Development
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">⚛️</div>
+                        <div class="skill-name">React</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🔺</div>
+                        <div class="skill-name">Next.js</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">📱</div>
+                        <div class="skill-name">HTML</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🎨</div>
+                        <div class="skill-name">CSS</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="category-name">
+                    <div class="category-icon">⚙️</div>
+                    Backend Development
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">🟢</div>
+                        <div class="skill-name">Node.js</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">⚡</div>
+                        <div class="skill-name">Supabase</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🔥</div>
+                        <div class="skill-name">Firebase</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="category-name">
+                    <div class="category-icon">🔌</div>
+                    API Integration
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">📡</div>
+                        <div class="skill-name">REST API</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🔄</div>
+                        <div class="skill-name">GraphQL</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🌊</div>
+                        <div class="skill-name">Webhook</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="category-name">
+                    <div class="category-icon">💻</div>
+                    Programming Languages
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">📜</div>
+                        <div class="skill-name">JavaScript</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🔷</div>
+                        <div class="skill-name">TypeScript</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🐍</div>
+                        <div class="skill-name">Python</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <div class="category-name">
+                    <div class="category-icon">🛠️</div>
+                    Tools & Platforms
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">🛒</div>
+                        <div class="skill-name">Shopify</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🐙</div>
+                        <div class="skill-name">Git</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">💳</div>
+                        <div class="skill-name">Stripe</div>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Projects Card -->
         <div class="projects-card" id="projectsCard">
-            <div class="projects-header">
-                <h2 class="projects-title">My Projects</h2>
+            <div class="card-header">
+                <h2 class="card-title">My Projects</h2>
                 <button class="close-btn" onclick="toggleProjects()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"/>
@@ -556,10 +879,42 @@
             return window.innerWidth <= 768;
         }
 
+        // Toggle skills card
+        function toggleSkills() {
+            const skillsCard = document.getElementById('skillsCard');
+            const projectsCard = document.getElementById('projectsCard');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            // Close projects card if open
+            if (projectsCard.classList.contains('active')) {
+                projectsCard.classList.remove('active');
+            }
+            
+            if (skillsCard.classList.contains('active')) {
+                skillsCard.classList.remove('active');
+                if (isMobile()) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            } else {
+                skillsCard.classList.add('active');
+                if (isMobile()) {
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
+
         // Toggle projects card
         function toggleProjects() {
             const projectsCard = document.getElementById('projectsCard');
+            const skillsCard = document.getElementById('skillsCard');
             const overlay = document.getElementById('mobileOverlay');
+            
+            // Close skills card if open
+            if (skillsCard.classList.contains('active')) {
+                skillsCard.classList.remove('active');
+            }
             
             if (projectsCard.classList.contains('active')) {
                 projectsCard.classList.remove('active');
@@ -576,21 +931,38 @@
             }
         }
 
-        // Close projects card when clicking overlay on mobile
+        // Close cards when clicking overlay on mobile
         document.getElementById('mobileOverlay').addEventListener('click', function() {
-            toggleProjects();
+            const skillsCard = document.getElementById('skillsCard');
+            const projectsCard = document.getElementById('projectsCard');
+            
+            if (skillsCard.classList.contains('active')) {
+                toggleSkills();
+            }
+            if (projectsCard.classList.contains('active')) {
+                toggleProjects();
+            }
         });
 
-        // Close projects card when clicking outside on desktop
+        // Close cards when clicking outside on desktop
         document.addEventListener('click', function(event) {
             if (!isMobile()) {
                 const projectsCard = document.getElementById('projectsCard');
+                const skillsCard = document.getElementById('skillsCard');
                 const projectsButton = document.querySelector('.projects');
-                const isClickInsideProjects = projectsCard.contains(event.target);
-                const isClickOnButton = projectsButton.contains(event.target);
+                const skillsButton = document.querySelector('.skills');
                 
-                if (!isClickInsideProjects && !isClickOnButton && projectsCard.classList.contains('active')) {
+                const isClickInsideProjects = projectsCard.contains(event.target);
+                const isClickOnProjectsButton = projectsButton.contains(event.target);
+                const isClickInsideSkills = skillsCard.contains(event.target);
+                const isClickOnSkillsButton = skillsButton.contains(event.target);
+                
+                if (!isClickInsideProjects && !isClickOnProjectsButton && projectsCard.classList.contains('active')) {
                     projectsCard.classList.remove('active');
+                }
+                
+                if (!isClickInsideSkills && !isClickOnSkillsButton && skillsCard.classList.contains('active')) {
+                    skillsCard.classList.remove('active');
                 }
             }
         });
@@ -603,7 +975,7 @@
             if (!isMobile()) {
                 socialIcons.forEach(icon => {
                     icon.addEventListener('click', function(e) {
-                        if (!this.classList.contains('projects')) {
+                        if (!this.classList.contains('projects') && !this.classList.contains('skills')) {
                             this.style.transform = 'scale(0.95) translateY(-3px)';
                             setTimeout(() => {
                                 this.style.transform = 'scale(1.2) translateY(-5px)';
@@ -613,26 +985,54 @@
                 });
             }
 
-            // Animate project items on card open
+            // Animate skill progress bars
+            function animateSkillBars() {
+                const progressBars = document.querySelectorAll('.skill-progress');
+                progressBars.forEach((bar, index) => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, index * 100);
+                });
+            }
+
+            // Animate items on card open
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.target.classList.contains('active')) {
-                        const projectItems = document.querySelectorAll('.project-item');
-                        projectItems.forEach((item, index) => {
-                            item.style.opacity = '0';
-                            item.style.transform = isMobile() ? 'translateY(20px)' : 'translateX(20px)';
-                            setTimeout(() => {
-                                item.style.transition = 'all 0.3s ease';
-                                item.style.opacity = '1';
-                                item.style.transform = isMobile() ? 'translateY(0)' : 'translateX(0)';
-                            }, index * 100);
-                        });
+                        if (mutation.target.id === 'skillsCard') {
+                            const skillCategories = document.querySelectorAll('.skill-category');
+                            skillCategories.forEach((category, index) => {
+                                category.style.opacity = '0';
+                                category.style.transform = isMobile() ? 'translateY(20px)' : 'translateX(-20px)';
+                                setTimeout(() => {
+                                    category.style.transition = 'all 0.3s ease';
+                                    category.style.opacity = '1';
+                                    category.style.transform = isMobile() ? 'translateY(0)' : 'translateX(0)';
+                                }, index * 100);
+                            });
+                            setTimeout(animateSkillBars, 300);
+                        } else if (mutation.target.id === 'projectsCard') {
+                            const projectItems = document.querySelectorAll('.project-item');
+                            projectItems.forEach((item, index) => {
+                                item.style.opacity = '0';
+                                item.style.transform = isMobile() ? 'translateY(20px)' : 'translateX(20px)';
+                                setTimeout(() => {
+                                    item.style.transition = 'all 0.3s ease';
+                                    item.style.opacity = '1';
+                                    item.style.transform = isMobile() ? 'translateY(0)' : 'translateX(0)';
+                                }, index * 100);
+                            });
+                        }
                     }
                 });
             });
 
             const projectsCard = document.getElementById('projectsCard');
+            const skillsCard = document.getElementById('skillsCard');
             observer.observe(projectsCard, { attributes: true, attributeFilter: ['class'] });
+            observer.observe(skillsCard, { attributes: true, attributeFilter: ['class'] });
         });
 
         // Handle window resize
@@ -641,9 +1041,10 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
                 const projectsCard = document.getElementById('projectsCard');
+                const skillsCard = document.getElementById('skillsCard');
                 const overlay = document.getElementById('mobileOverlay');
                 
-                if (projectsCard.classList.contains('active')) {
+                if (projectsCard.classList.contains('active') || skillsCard.classList.contains('active')) {
                     if (!isMobile()) {
                         overlay.classList.remove('active');
                         document.body.style.overflow = '';
